@@ -23,4 +23,4 @@ def attach(log_function):
         for entry in j:
             if entry['MESSAGE'] != "":
                 print(str(entry['__REALTIME_TIMESTAMP'] )+ ' ' + entry['MESSAGE'])
-                asyncio.run(log_function(str(entry['__REALTIME_TIMESTAMP'] )+ ' ' + entry['MESSAGE']))
+                asyncio.create_task(log_function(str(entry['__REALTIME_TIMESTAMP'] )+ ' ' + entry['MESSAGE']))
