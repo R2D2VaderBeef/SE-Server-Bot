@@ -1,12 +1,13 @@
+import os
 import select
 import asyncio
 from systemd import journal
 
-def attach(service, log_function):
+def attach(log_function):
     j = journal.Reader()
     j.log_level(journal.LOG_INFO)
 
-    j.add_match(_SYSTEMD_UNIT=service)
+    j.add_match(_SYSTEMD_UNIT=os.getenv('SERVICE'))
     j.seek_tail()
     j.get_previous()
 
