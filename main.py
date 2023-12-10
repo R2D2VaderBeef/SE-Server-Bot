@@ -1,9 +1,9 @@
 import os
-from dotenv import load_dotenv
-load_dotenv()
+from dotenv import dotenv_values
+env = dotenv_values(".env")
 
 import bot
-bot.login(os.environ['TOKEN'], os.environ['CHANNEL'])
+bot.login(env['TOKEN'], env['CHANNEL'])
 
 import logger
-logger.attach(os.environ['SERVICE'])
+logger.attach(env['SERVICE'])

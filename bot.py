@@ -1,4 +1,3 @@
-import os
 import discord
 
 channel_id = None
@@ -14,9 +13,9 @@ intents.message_content = True
 client = DiscordBot(intents=intents)
 
 def login(token, new_channel_id):
-    client.run(token)
     global channel_id
     channel_id = new_channel_id
+    client.run(token)
 
 async def log_line(message):
     await channel.send(message)
