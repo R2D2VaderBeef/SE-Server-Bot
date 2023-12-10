@@ -1,4 +1,5 @@
 import select
+import asyncio
 from systemd import journal
 from bot import log_line
 
@@ -25,4 +26,4 @@ def attach(service):
         for entry in j:
             if entry['MESSAGE'] != "":
                 print(str(entry['__REALTIME_TIMESTAMP'] )+ ' ' + entry['MESSAGE'])
-                log_line(str(entry['__REALTIME_TIMESTAMP'] )+ ' ' + entry['MESSAGE'])
+                asyncio.run(log_line(str(entry['__REALTIME_TIMESTAMP'] )+ ' ' + entry['MESSAGE']))
