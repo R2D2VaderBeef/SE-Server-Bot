@@ -14,11 +14,9 @@ class DiscordBot(discord.Client):
     async def on_ready(self):
         global channel
         channel = client.get_channel(int(os.getenv('CHANNEL')))
-        #logger_thread = threading.Thread(target=logger.attach, args=(log_line,))
-        #logger_thread.start()
         self.loop.create_task(self.attach())
 
-    def attach():
+    def attach(*args):
         j = journal.Reader()
         j.log_level(journal.LOG_INFO)
 
