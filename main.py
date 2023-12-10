@@ -2,6 +2,7 @@ import os
 from dotenv import load_dotenv
 load_dotenv()
 import threading
+import asyncio
 
 import discord
 import logger
@@ -22,7 +23,10 @@ client = DiscordBot(intents=intents)
 def login():
     client.run(os.getenv('TOKEN'))
 
-async def log_line(message):
-    await channel.send(message)
+def log_line(message):
+    asyncio.get_event_loop().create_task(send_log_message(message)) 
+
+async def send_log_message(message):
+    channel.send(message)
 
 login()

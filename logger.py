@@ -1,6 +1,5 @@
 import os
 import select
-import asyncio
 from systemd import journal
 
 def attach(log_function):
@@ -22,4 +21,4 @@ def attach(log_function):
             if entry['MESSAGE'] != "":
                 #str(entry['__REALTIME_TIMESTAMP'] )+ ' ' +
                 print(entry['MESSAGE'])
-                asyncio.get_event_loop().create_task(log_function(entry['MESSAGE']))
+                log_function(entry['MESSAGE'])
