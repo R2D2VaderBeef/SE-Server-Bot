@@ -1,9 +1,12 @@
 import os
+import requests
 from dotenv import load_dotenv
 load_dotenv()
 
 import select
 from systemd import journal
+
+url = os.getenv('WEBHOOK')
 
 j = journal.Reader()
 j.log_level(journal.LOG_INFO)
@@ -20,5 +23,5 @@ while p.poll():
         continue
     for entry in j:
         if entry['MESSAGE'] != "":
-            #str(entry['__REALTIME_TIMESTAMP'] )+ ' ' +
             print(entry['MESSAGE'])
+            requests.post(url=url, json={"username": "Vader's Test Server", "content": entry['MESSAGE']})
