@@ -1,12 +1,8 @@
 import select
 import asyncio
 from systemd import journal
-from bot import log_line
 
-print("one was run")
-
-def attach(service):
-    print("attaching now boss")
+def attach(service, log_function):
     j = journal.Reader()
     j.log_level(journal.LOG_INFO)
 
@@ -26,4 +22,4 @@ def attach(service):
         for entry in j:
             if entry['MESSAGE'] != "":
                 print(str(entry['__REALTIME_TIMESTAMP'] )+ ' ' + entry['MESSAGE'])
-                asyncio.run(log_line(str(entry['__REALTIME_TIMESTAMP'] )+ ' ' + entry['MESSAGE']))
+                asyncio.run(log_function(str(entry['__REALTIME_TIMESTAMP'] )+ ' ' + entry['MESSAGE']))

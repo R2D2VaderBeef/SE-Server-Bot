@@ -1,12 +1,26 @@
 import os
-import threading
-from dotenv import dotenv_values
-env = dotenv_values(".env")
+from dotenv import load_dotenv
+load_dotenv()
 
-import bot
-bot_thread = threading.Thread(target=bot.login, args=(env['TOKEN'], env['CHANNEL']))
-bot_thread.start()
-
+import discord
 import logger
-logger_thread = threading.Thread(target=logger.attach, args=(env['SERVICE']))
-logger_thread.start()
+
+channel = None
+
+class DiscordBot(discord.Client):
+    async def on_ready(self):
+        global channel
+        channel = client.get_channel(int(os.getenv["CHANNEL"]))
+        logger.attach()
+
+intents = discord.Intents.default()
+intents.message_content = True
+client = DiscordBot(intents=intents)
+
+def login():
+    client.run(os.getenv['TOKEN'])
+
+async def log_line(message):
+    await channel.send(message)
+
+login()
