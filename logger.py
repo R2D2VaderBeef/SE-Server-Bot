@@ -2,7 +2,6 @@ import os
 import select
 import asyncio
 from systemd import journal
-loop = asyncio.get_event_loop()
 
 def attach(log_function):
     j = journal.Reader()
@@ -21,5 +20,6 @@ def attach(log_function):
 
         for entry in j:
             if entry['MESSAGE'] != "":
-                print(str(entry['__REALTIME_TIMESTAMP'] )+ ' ' + entry['MESSAGE'])
-                loop.run_until_complete(log_function(str(entry['__REALTIME_TIMESTAMP'] )+ ' ' + entry['MESSAGE']))
+                #str(entry['__REALTIME_TIMESTAMP'] )+ ' ' +
+                print(entry['MESSAGE'])
+                asyncio.get_event_loop().create_task(log_function(entry['MESSAGE']))
