@@ -1,11 +1,9 @@
 import os
 from dotenv import load_dotenv
 load_dotenv()
-import threading
 import asyncio
 
 import discord
-import logger
 
 import select
 from systemd import journal
